@@ -1,14 +1,13 @@
 #!/bin/bash
 
+# make sure script exits if any process exits unsuccessfully
+set -e
 
-# base image
-docker pull davidfrantz/base
+# parse config file
+IMAGE=`./read-config.sh "IMAGE"`
 
-# dev version
-docker pull davidfrantz/force:dev
-
-# latest version
-docker pull davidfrantz/force
+# pull latest image
+docker pull "$IMAGE"
 
 exit 0
 

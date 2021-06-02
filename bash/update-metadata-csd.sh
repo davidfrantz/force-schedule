@@ -1,7 +1,13 @@
 #!/bin/bash
 
-IMAGE=davidfrantz/force:dev
+# make sure script exits if any process exits unsuccessfully
+set -e
 
+# parse config file
+IMAGE=`./read-config.sh "IMAGE"`
+DIR_CSD_META=`./read-config.sh "DIR_CSD_META"`
+
+# update CSD metadata
 docker run \
 --rm \
 -e FORCE_CREDENTIALS=/app/credentials \
@@ -13,7 +19,7 @@ docker run \
 -w $PWD \
 -u $(id -u):$(id -g) \
 $IMAGE \
-force-level1-csd -u /data/Dagobah/dc/input
+force-level1-csd -u $DIR_CSD_META
 
 exit 0
 

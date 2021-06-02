@@ -1,43 +1,47 @@
 #!/bin/bash
 
-# input
-DIR_INPUT=/data/Dagobah/dc/input/sentinel2
-PARAM=/data/Dagobah/dc/deu/param/ard/germany-operational-sentinel2.prm
+# make sure script exits if any process exits unsuccessfully
+set -e
 
-# current time
-TIME=$(date +"%Y%m%d%H%M%S")
+# parse config file
+DIR_SENTINEL2_IMAGES=`./read-config.sh "DIR_SENTINEL2_IMAGES"`
+FILE_SENTINEL2_QUEUE=`./read-config.sh "FILE_SENTINEL2_QUEUE"`
 
 # renamed queue
-INP_QUEUE="$DIR_INPUT/queue.txt"
-OUT_QUEUE="$DIR_INPUT/.queue_$TIME.txt"
-
-# input L1C directory
-INP_L1C="$DIR_INPUT/images"
+DIR_QUEUE=`dirname "$FILE_MV_QUEUE"`
+BASE_QUEUE=`basename "$FILE_MV_QUEUE"`
+TIME=$(date +"%Y%m%d%H%M%S")
+FILE_MV_QUEUE="$DIR_QUEUE/.queue-$TIME-$BASE_QUEUE.txt"
 
 # is there a queue?
-if [ ! -w "$INP_QUEUE" ]; then
+if [ ! -w "$FILE_SENTINEL2_QUEUE" ]; then
   echo "No queue. Nothing to do. Going back to sleep."
   exit 0
 fi
 
-# is there input data?
-if [ ! -d "$INP_L1C" ]; then
+# is there an input data directory?
+if [ ! -d "$DIR_SENTINEL2_IMAGES" ]; then
   echo "No input data. But there is a queue. Inspect!"
   exit 1
 fi
 
 
+# generate ARD parameter file
+./ard-parameter.sh && \
 # process L1C to ARD
-bash /data/Dagobah/dc/force-schedule/bash/ard-sentinel2.sh && \
+./ard-sentinel2.sh && \
 #
 # generate processing report
-bash /data/Dagobah/dc/force-schedule/bash/log-sentinel2.sh && \
+./log-sentinel2.sh && \
 #
 # move the queue
-mv "$INP_QUEUE" "$OUT_QUEUE" && \
+mv "$FILE_SENTINEL2_QUEUE" "$FILE_MV_QUEUE" && \
 #
 # delete && remake L1C
-rm -rf "$INP_L1C" && mkdir "$INP_L1C"
+rm -rf "$DIR_SENTINEL2_IMAGES" && mkdir "$DIR_SENTINEL2_IMAGES" && \
+#
+# delete logfiles that are not OK -> redownload
+
 
 
 exit 0
