@@ -28,10 +28,10 @@ fi
 
 
 # process L1C to ARD
-bash /data/Dagobah/dc/force-schedule/ard-sentinel2.sh && \
+bash /data/Dagobah/dc/force-schedule/bash/ard-sentinel2.sh && \
 #
 # generate processing report
-bash /data/Dagobah/dc/force-schedule/log-sentinel2.sh && \
+bash /data/Dagobah/dc/force-schedule/bash/log-sentinel2.sh && \
 #
 # move the queue
 mv "$INP_QUEUE" "$OUT_QUEUE" && \
