@@ -1,4 +1,3 @@
-#DIR_REPO = /data/Dagobah/dc/force-schedule
 IMAGE = davidfrantz/force:dev
 
 DIR_CSD_META = /data/Dagobah/dc/input
@@ -7,9 +6,11 @@ DIR_SENTINEL2_IMAGES = /data/Dagobah/dc/input/sentinel2/images
 FILE_SENTINEL2_QUEUE = /data/Dagobah/dc/input/sentinel2/queue.txt
 FILE_SENTINEL2_AOI = /data/Dagobah/dc/deu/vector/MGRS_allowed-footprints.txt
 
+FILE_ARD_SENTINEL2_PARAM = /data/Dagobah/dc/deu/param/ard/germany-operational-sentinel2.prm
+FILE_ARD_LANDSAT_OLI_PARAM = /data/Dagobah/dc/deu/param/ard/germany-operational-landsat-oli.prm
+FILE_ARD_LANDSAT_TM_PARAM = /data/Dagobah/dc/deu/param/ard/germany-operational-landsat-tm.prm
 
-DIR_ARD_PARAM = 
-DIR_ARD_CUBE = 
+DIR_ARD_CUBE = /data/Dagobah/dc/deu/ard
 DIR_ARD_LOG = /data/Dagobah/dc/deu/log
-
+DIR_ARD_REPORT = /data/Dagobah/dc/deu/report
 

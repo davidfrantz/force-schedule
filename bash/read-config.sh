@@ -17,7 +17,7 @@ fi
 TAG=$1
 
 # search for tag in config and read value
-VALUE=$(grep "$TAG" "$CONFIG" | sed 's/.* *= *//')
+VALUE=$(grep "^$TAG " "$CONFIG" | sed 's/.* *= *//')
 
 # read successful?
 if [ -z "$VALUE" ]; then

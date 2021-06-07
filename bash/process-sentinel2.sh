@@ -11,7 +11,7 @@ FILE_SENTINEL2_QUEUE=`./read-config.sh "FILE_SENTINEL2_QUEUE"`
 DIR_QUEUE=`dirname "$FILE_MV_QUEUE"`
 BASE_QUEUE=`basename "$FILE_MV_QUEUE"`
 TIME=$(date +"%Y%m%d%H%M%S")
-FILE_MV_QUEUE="$DIR_QUEUE/.queue-$TIME-$BASE_QUEUE.txt"
+FILE_MV_QUEUE="$DIR_QUEUE/.queue-$TIME-$BASE_QUEUE"
 
 # is there a queue?
 if [ ! -w "$FILE_SENTINEL2_QUEUE" ]; then
@@ -26,23 +26,19 @@ if [ ! -d "$DIR_SENTINEL2_IMAGES" ]; then
 fi
 
 
-# generate ARD parameter file
-./ard-parameter.sh && \
 # process L1C to ARD
 ./ard-sentinel2.sh && \
 #
 # generate processing report
-./log-sentinel2.sh && \
+./ard-report.sh && \
 #
 # move the queue
 mv "$FILE_SENTINEL2_QUEUE" "$FILE_MV_QUEUE" && \
 #
 # delete && remake L1C
-rm -rf "$DIR_SENTINEL2_IMAGES" && mkdir "$DIR_SENTINEL2_IMAGES" && \
+rm -rf "$DIR_SENTINEL2_IMAGES" && mkdir "$DIR_SENTINEL2_IMAGES" #&& \
 #
 # delete logfiles that are not OK -> redownload
-
-
+# todo
 
 exit 0
-
