@@ -1,7 +1,8 @@
 #!/bin/bash
 
 PROG=`basename $0`;
-CONFIG=../config/config.txt
+BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CONFIG=$BIN/../config/config.txt
 
 # config found?
 if [ ! -r $CONFIG ]; then

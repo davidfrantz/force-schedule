@@ -1,11 +1,14 @@
 #!/bin/bash
 
+PROG=`basename $0`;
+BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # make sure script exits if any process exits unsuccessfully
 set -e
 
 # parse config file
-DIR_SENTINEL2_IMAGES=`./read-config.sh "DIR_SENTINEL2_IMAGES"`
-FILE_SENTINEL2_QUEUE=`./read-config.sh "FILE_SENTINEL2_QUEUE"`
+DIR_SENTINEL2_IMAGES=`$BIN/read-config.sh "DIR_SENTINEL2_IMAGES"`
+FILE_SENTINEL2_QUEUE=`$BIN/read-config.sh "FILE_SENTINEL2_QUEUE"`
 
 # renamed queue
 DIR_QUEUE=`dirname "$FILE_MV_QUEUE"`
@@ -27,10 +30,10 @@ fi
 
 
 # process L1C to ARD
-./ard-sentinel2.sh && \
+$BIN/ard-sentinel2.sh && \
 #
 # generate processing report
-./ard-report.sh && \
+$BIN/ard-report.sh && \
 #
 # move the queue
 mv "$FILE_SENTINEL2_QUEUE" "$FILE_MV_QUEUE" && \

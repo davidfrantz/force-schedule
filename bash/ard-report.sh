@@ -1,12 +1,15 @@
 #!/bin/bash
 
+PROG=`basename $0`;
+BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # make sure script exits if any process exits unsuccessfully
 set -e
 
 # parse config file
-IMAGE=`./read-config.sh "IMAGE"`
-DIR_ARD_LOG=`./read-config.sh "DIR_ARD_LOG"`
-DIR_ARD_REPORT=`./read-config.sh "DIR_ARD_REPORT"`
+IMAGE=`$BIN/read-config.sh "IMAGE"`
+DIR_ARD_LOG=`$BIN/read-config.sh "DIR_ARD_LOG"`
+DIR_ARD_REPORT=`$BIN/read-config.sh "DIR_ARD_REPORT"`
 
 # current time
 TIME=$(date +"%Y%m%d%H%M%S")
