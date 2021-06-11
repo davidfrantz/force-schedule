@@ -6,11 +6,14 @@ BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # make sure script exits if any process exits unsuccessfully
 set -e
 
-# parse config file
-IMAGE=`$BIN/read-config.sh "FORCE_IMAGE"`
 
-# pull latest image
-docker pull "$IMAGE"
+# retrieve links
+$BIN/retrieve-landsat-links.sh && \
+#
+# download the data
+$BIN/download-landsat-links.sh && \
+#
+# extract the data, build queue
+$BIN/extract-landsat-links.sh 
 
 exit 0
-

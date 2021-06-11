@@ -7,7 +7,7 @@ BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 set -e
 
 # parse config file
-IMAGE=`$BIN/read-config.sh "IMAGE"`
+IMAGE=`$BIN/read-config.sh "FORCE_IMAGE"`
 DIR_CSD_META=`$BIN/read-config.sh "DIR_CSD_META"`
 
 # update CSD metadata

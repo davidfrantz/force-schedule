@@ -1,6 +1,12 @@
-IMAGE = davidfrantz/force:dev
+FORCE_IMAGE = davidfrantz/force:dev
+LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
 DIR_CSD_META = /data/Dagobah/dc/input
+
+DIR_LANDSAT_IMAGES = /data/Dagobah/dc/input/landsat/images
+DIR_LANDSAT_LINKS = /data/Dagobah/dc/input/landsat
+FILE_LANDSAT_QUEUE = /data/Dagobah/dc/input/landsat/queue.txt
+FILE_LANDSAT_AOI = /data/Dagobah/dc/deu/vector/WRS2_allowed-footprints.txt
 
 DIR_SENTINEL2_IMAGES = /data/Dagobah/dc/input/sentinel2/images
 FILE_SENTINEL2_QUEUE = /data/Dagobah/dc/input/sentinel2/queue.txt
