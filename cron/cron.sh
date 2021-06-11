@@ -21,6 +21,11 @@ crontab -e
 # 21:00 PM each night
 0 21 * * * force-schedule/bash/ingest-sentinel2.sh
 
+# generate Landsat links for images that were not already processed to ARD
+# download images that were not already downloaded
+# extract the images
+# 23:00 PM each day
+0 23 * * * /data/Dagobah/dc/force-schedule/bash/ingest-landsat.sh
 
 # Preprocess Sentinel-2 L1C to ARD
 # Generate processing report
