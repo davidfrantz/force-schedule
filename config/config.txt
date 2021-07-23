@@ -3,6 +3,8 @@ LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
 DIR_CSD_META = /data/Dagobah/dc/input
 
+DIR_WVP = /data/Dagobah/dc/misc/wvp
+
 DIR_LANDSAT_IMAGES = /data/Dagobah/dc/input/landsat/images
 DIR_LANDSAT_LINKS = /data/Dagobah/dc/input/landsat
 FILE_LANDSAT_QUEUE = /data/Dagobah/dc/input/landsat/queue.txt
