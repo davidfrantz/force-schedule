@@ -6,13 +6,14 @@ BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # make sure script exits if any process exits unsuccessfully
 set -e
 
+maxtry=10
 if [ $# -eq 1 ]; then
   ntry=$1
 else
   ntry=0
 fi
 
-if [ $ntry -ge 2 ]; then
+if [ $ntry -ge $maxtry ]; then
   echo "max. tries reached. suspend for now."
   exit 1
 fi
@@ -23,11 +24,12 @@ DIR_WVP=`$BIN/read-config.sh "DIR_WVP"`
 
 # start and end dates
 #d=2000-02-24
-d=2021-01-01
+d=2021-06-01
+#d=2021-01-01
 #d=2021-06-19
 #d=$(date --date "30 days ago")
-#y=$(date -I --date yesterday)
-y=2021-06-20
+y=$(date -I --date yesterday)
+#y=2021-06-21
 #echo "$d" "$y"
 TIME=$(date +"%Y%m%d%H%M%S")
 
@@ -50,7 +52,7 @@ done
 
 
 # download and compile
-LOG="$DIR_WVP/force-lut-modis_$TIME-try$ntry.log"
+LOG="$DIR_WVP/log/force-lut-modis_$TIME-try$ntry.log"
 
 set +e
 parallel -a $CMD -j 8 > $LOG
@@ -60,13 +62,13 @@ rm $CMD
 
 
 # if failed, delete uncomplete files, and try again
-fail=$(grep "unable to open image" $LOG | sed 's/unable to open image //')
+fail=$(grep "unable to open image" $LOG | sed 's/^.*unable to open image //')
 nfail=$(echo $fail | wc -l)
 echo "$nfail failed"
 echo $fail 
 
 if [ $nfail -gt 0 ]; then
-  echo "failed to download some images (tries: $ntry)"
+  echo "failed to download $nfail images (tries: $ntry)"
   ((++ntry))
   rm $fail
   $BIN/update-wvdb.sh $ntry

@@ -39,9 +39,9 @@ $BIN/ard-report.sh && \
 mv "$FILE_LANDSAT_QUEUE" "$FILE_MV_QUEUE" && \
 #
 # delete && remake L1C
-rm -rf "$DIR_LANDSAT_IMAGES" && mkdir "$DIR_LANDSAT_IMAGES" #&& \
+rm -rf "$DIR_LANDSAT_IMAGES" && mkdir -p "$DIR_LANDSAT_IMAGES" && \
 #
 # delete logfiles that are not OK -> redownload
-# todo
+$BIN/ard-delete-logs.sh
 
 exit 0
