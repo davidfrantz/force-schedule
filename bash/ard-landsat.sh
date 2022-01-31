@@ -16,38 +16,49 @@ FILE_LANDSAT_QUEUE=`$BIN/read-config.sh "FILE_LANDSAT_QUEUE"`
 FILE_LANDSAT_QUEUE_TM=${FILE_LANDSAT_QUEUE%%.*}"_TM.txt"
 FILE_LANDSAT_QUEUE_OLI=${FILE_LANDSAT_QUEUE%%.*}"_OLI.txt"
 
+# split queue
+set +e
 grep "LE07_\|LT05_\|LT04_"  $FILE_LANDSAT_QUEUE > $FILE_LANDSAT_QUEUE_TM
 grep "LC08_"  $FILE_LANDSAT_QUEUE > $FILE_LANDSAT_QUEUE_OLI
+set -e
+
+# count queue
+NUM_TM=$(echo $FILE_LANDSAT_QUEUE_TM | wc -w)
+NUM_OLI=$(echo $FILE_LANDSAT_QUEUE_OLI | wc -w)
 
 # preprocess Landsat TM/ETM L1TP to L2 ARD
+if [ $NUM_TM -gt 0 ]; then
 docker run \
---rm \
--e FORCE_CREDENTIALS=/app/credentials \
--e BOTO_CONFIG=/app/credentials/.boto \
--v $HOME:/app/credentials \
--v /data:/data \
--v /mnt:/mnt \
--v $HOME:$HOME \
--w $PWD \
--u $(id -u):$(id -g) \
-$IMAGE \
-force-level2 \
-  $FILE_ARD_LANDSAT_TM_PARAM
+  --rm \
+  -e FORCE_CREDENTIALS=/app/credentials \
+  -e BOTO_CONFIG=/app/credentials/.boto \
+  -v $HOME:/app/credentials \
+  -v /data:/data \
+  -v /mnt:/mnt \
+  -v $HOME:$HOME \
+  -w $PWD \
+  -u $(id -u):$(id -g) \
+  $IMAGE \
+  force-level2 \
+    $FILE_ARD_LANDSAT_TM_PARAM
+fi
 
 # preprocess Landsat OLI L1TP to L2 ARD
-docker run \
---rm \
--e FORCE_CREDENTIALS=/app/credentials \
--e BOTO_CONFIG=/app/credentials/.boto \
--v $HOME:/app/credentials \
--v /data:/data \
--v /mnt:/mnt \
--v $HOME:$HOME \
--w $PWD \
--u $(id -u):$(id -g) \
-$IMAGE \
-force-level2 \
-  $FILE_ARD_LANDSAT_OLI_PARAM
+if [ $NUM_OLI -gt 0 ]; then
+  docker run \
+  --rm \
+  -e FORCE_CREDENTIALS=/app/credentials \
+  -e BOTO_CONFIG=/app/credentials/.boto \
+  -v $HOME:/app/credentials \
+  -v /data:/data \
+  -v /mnt:/mnt \
+  -v $HOME:$HOME \
+  -w $PWD \
+  -u $(id -u):$(id -g) \
+  $IMAGE \
+  force-level2 \
+    $FILE_ARD_LANDSAT_OLI_PARAM
+fi
 
 rm $FILE_LANDSAT_QUEUE_TM
 rm $FILE_LANDSAT_QUEUE_OLI
