@@ -12,23 +12,28 @@ FILE_ARD_LANDSAT_OLI_PARAM=`$BIN/read-config.sh "FILE_ARD_LANDSAT_OLI_PARAM"`
 FILE_ARD_LANDSAT_TM_PARAM=`$BIN/read-config.sh "FILE_ARD_LANDSAT_TM_PARAM"`
 FILE_LANDSAT_QUEUE=`$BIN/read-config.sh "FILE_LANDSAT_QUEUE"`
 
-# renamed queue
+# renamed queue TM
 FILE_LANDSAT_QUEUE_TM=${FILE_LANDSAT_QUEUE%%.*}"_TM.txt"
+
+if ! grep -q "LE07_\|LT05_\|LT04_" $FILE_LANDSAT_QUEUE; then
+    echo "No L7, L5 or L4 files in queue."
+else
+    grep "LE07_\|LT05_\|LT04_"  $FILE_LANDSAT_QUEUE > $FILE_LANDSAT_QUEUE_TM
+fi
+
+
+# renamed queue OLI
 FILE_LANDSAT_QUEUE_OLI=${FILE_LANDSAT_QUEUE%%.*}"_OLI.txt"
+if ! grep -q "LC08_\|LC09_" $FILE_LANDSAT_QUEUE; then
+    echo "No OLI or OLI2 files in queue."
+else
+    grep "LC08_\|LC09_"  $FILE_LANDSAT_QUEUE > $FILE_LANDSAT_QUEUE_OLI
+fi
 
-# split queue
-set +e
-grep "LE07_\|LT05_\|LT04_"  $FILE_LANDSAT_QUEUE > $FILE_LANDSAT_QUEUE_TM
-grep "LC08_"  $FILE_LANDSAT_QUEUE > $FILE_LANDSAT_QUEUE_OLI
-set -e
-
-# count queue
-NUM_TM=$(echo $FILE_LANDSAT_QUEUE_TM | wc -w)
-NUM_OLI=$(echo $FILE_LANDSAT_QUEUE_OLI | wc -w)
 
 # preprocess Landsat TM/ETM L1TP to L2 ARD
-if [ $NUM_TM -gt 0 ]; then
-docker run \
+if [ -f $FILE_LANDSAT_QUEUE_TM ]; then
+  docker run \
   --rm \
   -e FORCE_CREDENTIALS=/app/credentials \
   -e BOTO_CONFIG=/app/credentials/.boto \
@@ -43,8 +48,10 @@ docker run \
     $FILE_ARD_LANDSAT_TM_PARAM
 fi
 
+
+
 # preprocess Landsat OLI L1TP to L2 ARD
-if [ $NUM_OLI -gt 0 ]; then
+if [ -f $FILE_LANDSAT_QUEUE_OLI ]; then
   docker run \
   --rm \
   -e FORCE_CREDENTIALS=/app/credentials \
@@ -60,7 +67,13 @@ if [ $NUM_OLI -gt 0 ]; then
     $FILE_ARD_LANDSAT_OLI_PARAM
 fi
 
-rm $FILE_LANDSAT_QUEUE_TM
-rm $FILE_LANDSAT_QUEUE_OLI
+if [ -f $FILE_LANDSAT_QUEUE_TM ]; then
+	rm $FILE_LANDSAT_QUEUE_TM
+fi
+
+
+if [ -f $FILE_LANDSAT_QUEUE_OLI ]; then
+	rm $FILE_LANDSAT_QUEUE_OLI
+fi
 
 exit 0
