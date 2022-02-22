@@ -1,4 +1,4 @@
-FORCE_IMAGE = davidfrantz/force:3.7.0
+FORCE_IMAGE = davidfrantz/force:3.7.6
 LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
 DIR_CSD_META = /data/Dagobah/dc/input
