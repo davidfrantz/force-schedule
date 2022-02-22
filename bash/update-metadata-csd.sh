@@ -22,7 +22,7 @@ docker run \
 -w $PWD \
 -u $(id -u):$(id -g) \
 $IMAGE \
-force-level1-csd -u $DIR_CSD_META
+force-level1-csd -u $DIR_CSD_META -s s2a
 
 exit 0
 
