@@ -1,24 +1,24 @@
-FORCE_IMAGE = davidfrantz/force:3.7.0
+FORCE_IMAGE = davidfrantz/force:3.7.6
 LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
-DIR_CSD_META = /data/Dagobah/dc/input
+DIR_CSD_META = /data/ahsoka/dc/input
 
-DIR_WVP = /data/Dagobah/dc/misc/wvp
+DIR_WVP = /data/ahsoka/dc/misc/wvp
 
-DIR_LANDSAT_IMAGES = /data/Dagobah/dc/input/landsat/images
-DIR_LANDSAT_LINKS = /data/Dagobah/dc/input/landsat
-FILE_LANDSAT_QUEUE = /data/Dagobah/dc/input/landsat/queue.txt
-FILE_LANDSAT_AOI = /data/Dagobah/dc/deu/vector/WRS2_allowed-footprints.txt
+DIR_LANDSAT_IMAGES = /data/ahsoka/dc/input/landsat/images
+DIR_LANDSAT_LINKS = /data/ahsoka/dc/input/landsat
+FILE_LANDSAT_QUEUE = /data/ahsoka/dc/input/landsat/queue.txt
+FILE_LANDSAT_AOI = /data/ahsoka/dc/deu/vector/WRS2_allowed-footprints.txt
 
-DIR_SENTINEL2_IMAGES = /data/Dagobah/dc/input/sentinel2/images
-FILE_SENTINEL2_QUEUE = /data/Dagobah/dc/input/sentinel2/queue.txt
-FILE_SENTINEL2_AOI = /data/Dagobah/dc/deu/vector/MGRS_allowed-footprints.txt
+DIR_SENTINEL2_IMAGES = /data/ahsoka/dc/input/sentinel2/images
+FILE_SENTINEL2_QUEUE = /data/ahsoka/dc/input/sentinel2/queue.txt
+FILE_SENTINEL2_AOI = /data/ahsoka/dc/deu/vector/MGRS_allowed-footprints.txt
 
-FILE_ARD_SENTINEL2_PARAM = /data/Dagobah/dc/deu/param/ard/germany-operational-sentinel2.prm
-FILE_ARD_LANDSAT_OLI_PARAM = /data/Dagobah/dc/deu/param/ard/germany-operational-landsat-oli.prm
-FILE_ARD_LANDSAT_TM_PARAM = /data/Dagobah/dc/deu/param/ard/germany-operational-landsat-tm.prm
+FILE_ARD_SENTINEL2_PARAM = /data/ahsoka/dc/deu/param/ard/germany-operational-sentinel2.prm
+FILE_ARD_LANDSAT_OLI_PARAM = /data/ahsoka/dc/deu/param/ard/germany-operational-landsat-oli.prm
+FILE_ARD_LANDSAT_TM_PARAM = /data/ahsoka/dc/deu/param/ard/germany-operational-landsat-tm.prm
 
-DIR_ARD_CUBE = /data/Dagobah/dc/deu/ard
-DIR_ARD_LOG = /data/Dagobah/dc/deu/log
-DIR_ARD_REPORT = /data/Dagobah/dc/deu/report
+DIR_ARD_CUBE = /data/ahsoka/dc/deu/ard
+DIR_ARD_LOG = /data/ahsoka/dc/deu/log
+DIR_ARD_REPORT = /data/ahsoka/dc/deu/report
 
