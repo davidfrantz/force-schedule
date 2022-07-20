@@ -1,15 +1,23 @@
 # force-schedule
+
 Schedule FORCE processing
 
+## General Usage
+
 How to use:
+
 1) Edit paths in `config/config.txt`
 2) install a CRON job, see `cron/cron.sh for suggestions`
 
 
-## Download Landsat Level 1 Collection 2
+## Specific instructions to download Landsat Level 1 Collection 2
+
 ### _Requirements_
+
 #### landsatlinks
+
 Follow instructions on [ernstste/landsatlinks](https://github.com/ernstste/landsatlinks#requirements)
+
 >**USGS Account**  
 >* Create an [USGS Account](https://ers.cr.usgs.gov/register)  
 >* [Request access](https://ers.cr.usgs.gov/profile/access) to the machine-to-machine API
@@ -17,6 +25,7 @@ Follow instructions on [ernstste/landsatlinks](https://github.com/ernstste/lands
 _First line: user, second line: password_
 
 #### Footprint
+
 Create a text file containing a **list of allowed pathrows** (AOI). The list must contain one path/row per line.  
 _Format: PPPRRR_  
 
@@ -25,6 +34,7 @@ _Format: PPPRRR_
 or [EO Grids Web Feature Service (WFS)](https://ows.geo.hu-berlin.de/services/eo-grids/)
 
 #### Configurations
+
 Prepare paths in **_/force-schedule/config/config.txt_**  
 `$ vi ./force-schedule/config/config.txt` 
 
@@ -32,4 +42,4 @@ Prepare paths in **_/force-schedule/config/config.txt_**
 
 Run **_/force-schedule/bash/ingest_landsat.sh_** in Terminal.  
 
-`$ bash ./force-schedule/bash/ingest_landsat.sh`
+`$ ./force-schedule/bash/ingest_landsat.sh`
