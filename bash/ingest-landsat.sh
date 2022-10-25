@@ -7,11 +7,8 @@ BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 set -e
 
 
-# retrieve links
-$BIN/retrieve-landsat-links.sh && \
-#
-# download the data
-$BIN/download-landsat-links.sh && \
+# download landsat data
+$BIN/download-landsat.sh && \
 #
 # extract the data, build queue
 $BIN/extract-landsat-links.sh 

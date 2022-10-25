@@ -7,8 +7,8 @@ BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 set -e
 
 # parse config file
-IMAGE=`$BIN/read-config.sh "FORCE_IMAGE"`
-DIR_WVP=`$BIN/read-config.sh "DIR_WVP"`
+IMAGE=$($BIN/read-config.sh "FORCE_IMAGE")
+DIR_WVP=$($BIN/read-config.sh "DIR_WVP")
 
 # date
 if [ $# -eq 0 ]; then

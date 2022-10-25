@@ -19,8 +19,8 @@ if [ $ntry -ge $maxtry ]; then
 fi
 
 # parse config file
-IMAGE=`$BIN/read-config.sh "FORCE_IMAGE"`
-DIR_WVP=`$BIN/read-config.sh "DIR_WVP"`
+IMAGE=$($BIN/read-config.sh "FORCE_IMAGE")
+DIR_WVP=$($BIN/read-config.sh "DIR_WVP")
 
 # start and end dates
 #d=2000-02-24

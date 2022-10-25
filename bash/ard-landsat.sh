@@ -7,10 +7,10 @@ BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 set -e
 
 # parse config file
-IMAGE=`$BIN/read-config.sh "FORCE_IMAGE"`
-FILE_ARD_LANDSAT_OLI_PARAM=`$BIN/read-config.sh "FILE_ARD_LANDSAT_OLI_PARAM"`
-FILE_ARD_LANDSAT_TM_PARAM=`$BIN/read-config.sh "FILE_ARD_LANDSAT_TM_PARAM"`
-FILE_LANDSAT_QUEUE=`$BIN/read-config.sh "FILE_LANDSAT_QUEUE"`
+IMAGE=$($BIN/read-config.sh "FORCE_IMAGE")
+FILE_ARD_LANDSAT_OLI_PARAM=$($BIN/read-config.sh "FILE_ARD_LANDSAT_OLI_PARAM")
+FILE_ARD_LANDSAT_TM_PARAM=$($BIN/read-config.sh "FILE_ARD_LANDSAT_TM_PARAM")
+FILE_LANDSAT_QUEUE=$($BIN/read-config.sh "FILE_LANDSAT_QUEUE")
 
 # renamed queue
 FILE_LANDSAT_QUEUE_TM=${FILE_LANDSAT_QUEUE%%.*}"_TM.txt"

@@ -8,8 +8,8 @@ set -e
 
 
 # parse config file
-DIR_LANDSAT_IMAGES=`$BIN/read-config.sh "DIR_LANDSAT_IMAGES"`
-FILE_LANDSAT_QUEUE=`$BIN/read-config.sh "FILE_LANDSAT_QUEUE"`
+DIR_LANDSAT_IMAGES=$($BIN/read-config.sh "DIR_LANDSAT_IMAGES")
+FILE_LANDSAT_QUEUE=$($BIN/read-config.sh "FILE_LANDSAT_QUEUE")
 
 function extract (){
 
