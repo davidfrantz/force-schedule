@@ -1,4 +1,4 @@
-FORCE_IMAGE = davidfrantz/force:3.7.6
+FORCE_IMAGE = davidfrantz/force:3.7.8
 LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
 DIR_CSD_META = /data/ahsoka/dc/input
