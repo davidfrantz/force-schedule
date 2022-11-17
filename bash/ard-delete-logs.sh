@@ -8,7 +8,7 @@ set -e
 
 # parse config file
 IMAGE=$($BIN/read-config.sh "FORCE_IMAGE")
-DIR_ARD_LOG=$(BIN/read-config.sh "DIR_ARD_LOG")
+DIR_ARD_LOG=$($BIN/read-config.sh "DIR_ARD_LOG")
 
 # preprocess the S2 L1C to L2 ARD
 docker run \
