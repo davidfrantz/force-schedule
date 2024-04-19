@@ -22,3 +22,4 @@ DIR_ARD_CUBE = /data/ahsoka/dc/deu/ard
 DIR_ARD_LOG = /data/ahsoka/dc/deu/log
 DIR_ARD_REPORT = /data/ahsoka/dc/deu/report
 
+DATE_RANGE = 20200101,20991231

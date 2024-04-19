@@ -11,6 +11,7 @@ IMAGE=$("$BIN"/read-config.sh "FORCE_IMAGE")
 DIR_ARD_LOG=$("$BIN"/read-config.sh "DIR_ARD_LOG")
 DIR_LANDSAT_IMAGES=$("$BIN"/read-config.sh "DIR_LANDSAT_IMAGES")
 FILE_LANDSAT_AOI=$("$BIN"/read-config.sh "FILE_LANDSAT_AOI")
+DATE_RANGE=$("$BIN"/read-config.sh "DATE_RANGE")
 
 # query USGS M2M API for Landsat product bundles and download what hasn't been processed to ARD yet
 docker run \
@@ -26,6 +27,7 @@ docker run \
     $FILE_LANDSAT_AOI \
     $DIR_LANDSAT_IMAGES \
     --cloudcover 0,70 \
+     --daterange $DATE_RANGE \
     --level L1TP \
     --tier T1 \
     --forcelogs $DIR_ARD_LOG \
