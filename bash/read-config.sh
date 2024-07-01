@@ -11,8 +11,8 @@ if [ $# -ne 2 ] ; then
   echo "2: configuration file" 1>&2;
   exit 1
 fi
+TAG=$1
 CONFIG=$2
-
 
 # config found?
 if [ ! -r "$CONFIG" ]; then
@@ -20,12 +20,6 @@ if [ ! -r "$CONFIG" ]; then
   exit 1
 fi
 
-# tag given?
-if [ $# -ne 1 ] ; then 
-  echo "$TAG not properly given to $PROG" 1>&2;
-  exit 1
-fi
-TAG=$1
 
 # search for tag in config and read value
 VALUE=$(grep "^$TAG " "$CONFIG" | sed 's/.* *= *//')
