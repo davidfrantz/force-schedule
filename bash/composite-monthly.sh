@@ -1,35 +1,73 @@
 #!/bin/bash
 
-# PROG=`basename $0`;
+PROG=$(basename "$0")
 BIN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+echo "$PROG: $(date +"%Y-%m-%d %H:%M:%S")"
+echo "-----------------------------------------------------------"
 
 # make sure script exits if any process exits unsuccessfully
 set -e
 
-# parse config file
-IMAGE=$("$BIN"/read-config.sh "FORCE_DEV_IMAGE")
-PARAM=$()
 
+# get config file
+if [ $# -ne 1 ] ; then 
+  echo "configuration file is missing" 1>&2;
+  exit 1
+fi
+CONFIG=$1
+
+
+# parse config file
+IMAGE=$("$BIN"/read-config.sh "FORCE_IMAGE" "$CONFIG")
+PARAM=$("$BIN"/read-config.sh "FILE_COMPOSITE_PARAM" "$CONFIG")
+LATENCY=$("$BIN"/read-config.sh "COMPOSITE_LATENCY" "$CONFIG")
+
+# get current date
 YEAR=$(date +%Y)
 MONTH=$(date +%m)
 DAY_START=01
 
+# get target month
+MONTH=$((MONTH-LATENCY))
+
+# account for turn of the year
+if [ $MONTH -le 0 ]; then
+  MONTH=$((12+MONTH))
+  YEAR=$((YEAR-1))
+fi
+
+# make sure month is 0-padded
+MONTH=$(printf "%02d" $MONTH)
+
+# how many days in month?
 case $MONTH in
   (01|03|05|07|08|10|12) DAY_END=31 ;;
   (04|06|09|11) DAY_END=30 ;;
-  (02) if [ $(($YEAR % 4)) -eq 0 ]; then DAY_END=29; else DAY_END=28; fi ;;
+  (02) if [ $((YEAR % 4)) -eq 0 ]; then DAY_END=29; else DAY_END=28; fi ;;
   (*) echo 'unexpected month'; exit 1 ;;
 esac
 
-echo $YEAR $MONTH $DAY_END
-
+# substitute and create temporary parameter file
 TEMP_PARAM="composite-$YEAR-$MONTH.prm"
-
-#sed "/^DATE_RANGE /c\\DATE_RANGE = $YEAR-$MONTH-$DAY_START $YEAR-$MONTH-$DAY_END" "$PARAM" > $TEMP_PARAM
+sed "/^DATE_RANGE /c\\DATE_RANGE = $YEAR-$MONTH-$DAY_START $YEAR-$MONTH-$DAY_END" "$PARAM" > "$TEMP_PARAM"
 
 # process
+docker run \
+--rm \
+-e FORCE_CREDENTIALS=/app/credentials \
+-e BOTO_CONFIG=/app/credentials/.boto \
+-v "$HOME:/app/credentials" \
+-v /data:/data \
+-v /mnt:/mnt \
+-v "$HOME:$HOME" \
+-w "$PWD" \
+-u "$(id -u):$(id -g)" \
+"$IMAGE" \
+force-higher-level \
+  "$TEMP_PARAM"
 
-rm $TEMP_PARAM
+# delete parameter file again
+rm "$TEMP_PARAM"
 
 exit 0
-

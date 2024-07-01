@@ -1,5 +1,4 @@
 FORCE_IMAGE = davidfrantz/force:3.7.10
-FORCE_DEV_IMAGE = davidfrantz/force:dev
 LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
 DIR_CSD_META = /data/ahsoka/dc/input
@@ -24,3 +23,6 @@ DIR_ARD_LOG = /data/ahsoka/dc/deu/log
 DIR_ARD_REPORT = /data/ahsoka/dc/deu/report
 
 DATE_RANGE = 20200101,20991231
+
+FILE_COMPOSITE_PARAM = /data/ahsoka/dc/deu/param/hard/composite_sentinel2.prm
+COMPOSITE_LATENCY = 1
