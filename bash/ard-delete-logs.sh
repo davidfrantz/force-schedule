@@ -30,6 +30,7 @@ docker run \
 -e BOTO_CONFIG=/app/credentials/.boto \
 -v "$HOME:/app/credentials" \
 -v /data:/data \
+-v /force:/force \
 -v /mnt:/mnt \
 -v "$HOME:$HOME" \
 -w "$PWD" \

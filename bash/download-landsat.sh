@@ -30,6 +30,7 @@ docker run \
   --rm \
   -v "$HOME:/app/credentials" \
   -v /data:/data \
+  -v /force:/force \
   -v /mnt:/mnt \
   -v "$HOME:$HOME" \
   -w "$PWD" \
