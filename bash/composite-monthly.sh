@@ -54,10 +54,11 @@ DOY_END=(31 59 90 120 151 181 212 243 273 304 334 365)
 
 # substitute and create temporary parameter file
 TEMP_PARAM="composite-$YEAR-$MONTH.prm"
-sed "/^DATE_RANGE /c\\DATE_RANGE = $YEAR-$MONTH-$DAY_START $YEAR-$MONTH-$DAY_END" "$PARAM" > "$TEMP_PARAM"
-sed "/^DOY_RANGE /c\\DOY_RANGE = ${DOY_START[(($MONTH-1))]} ${DOY_END[(($MONTH-1))]}" "$PARAM" > "$TEMP_PARAM"
-sed "/^YEAR_TARGET /c\\YEAR_TARGET = $YEAR" "$PARAM" > "$TEMP_PARAM"
-sed "/^DOY_STATIC /c\\DOY_STATIC = ${DOY_START[(($MONTH-1))]} ${DOY_MID[(($MONTH-1))]} ${DOY_END[(($MONTH-1))]}" "$PARAM" > "$TEMP_PARAM"
+cp "$PARAM" "$TEMP_PARAM"
+sed -i "/^DATE_RANGE /c\\DATE_RANGE = $YEAR-$MONTH-$DAY_START $YEAR-$MONTH-$DAY_END" "$TEMP_PARAM"
+sed -i "/^DOY_RANGE /c\\DOY_RANGE = ${DOY_START[(($MONTH-1))]} ${DOY_END[(($MONTH-1))]}" "$TEMP_PARAM"
+sed -i "/^YEAR_TARGET /c\\YEAR_TARGET = $YEAR" "$TEMP_PARAM"
+sed -i "/^DOY_STATIC /c\\DOY_STATIC = ${DOY_START[(($MONTH-1))]} ${DOY_MID[(($MONTH-1))]} ${DOY_END[(($MONTH-1))]}" "$TEMP_PARAM"
 
 # process
 docker run \
