@@ -52,6 +52,7 @@ docker run \
 -e FORCE_CREDENTIALS=/app/credentials \
 -e BOTO_CONFIG=/app/credentials/.boto \
 -v "$HOME:/app/credentials" \
+-v /codede:/codede \
 -v /data:/data \
 -v /force:/force \
 -v /mnt:/mnt \

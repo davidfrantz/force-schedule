@@ -35,6 +35,7 @@ docker run \
 -v "$HOME:/app/credentials" \
 -v /data:/data \
 -v /force:/force \
+-v /codede:/codede \
 -v /mnt:/mnt \
 -v "$HOME:$HOME" \
 -w "$PWD" \

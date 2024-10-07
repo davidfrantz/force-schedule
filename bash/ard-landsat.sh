@@ -47,6 +47,7 @@ docker run \
   -v "$HOME:/app/credentials" \
   -v /data:/data \
   -v /force:/force \
+  -v /codede:/codede \
   -v /mnt:/mnt \
   -v "$HOME:$HOME" \
   -w "$PWD" \
@@ -65,6 +66,7 @@ if [ "$NUM_OLI" -gt 0 ]; then
   -v "$HOME:/app/credentials" \
   -v /data:/data \
   -v /force:/force \
+  -v /codede:/codede \
   -v /mnt:/mnt \
   -v "$HOME:$HOME" \
   -w "$PWD" \

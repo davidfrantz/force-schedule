@@ -33,6 +33,7 @@ docker run \
   -v /force:/force \
   -v /mnt:/mnt \
   -v "$HOME:$HOME" \
+  -v /codede:/codede \
   -w "$PWD" \
   -u "$(id -u):$(id -g)" \
   "$IMAGE" \
