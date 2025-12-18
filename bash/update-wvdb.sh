@@ -35,7 +35,7 @@ DIR_WVP=$("$BIN"/read-config.sh "DIR_WVP" "$CONFIG")
 
 # start and end dates
 #d=2000-02-24
-d=2021-06-01
+d=$("$BIN"/read-config.sh "WVP_START" "$CONFIG" "2021-06-01") 
 #d=2021-01-01
 #d=2021-06-19
 #d=$(date --date "30 days ago")

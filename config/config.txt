@@ -1,4 +1,17 @@
-FORCE_IMAGE = davidfrantz/force:3.7.10
+FORCE_IMAGE = davidfrantz/force:3.10.04
+
+# overwrite user- and group id 
+# defaults to "$(id -u):$(id -g)"
+# USER_GROUP = 1234:5678
+
+# overwrite WVPD 
+# defaults to "2021-06-01", see update-wvdb.sh
+# WVP_START = 
+
+# overwrite DIR_CREDENTIALS 
+# defaults to $HOME
+# DIR_CREDENTIALS = 
+
 LANDSATLINKS_IMAGE = ernstste/landsatlinks
 
 DIR_CSD_META = /data/ahsoka/dc/input

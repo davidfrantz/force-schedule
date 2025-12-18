@@ -21,6 +21,8 @@ CONFIG=$1
 # parse config file
 IMAGE=$("$BIN"/read-config.sh "FORCE_IMAGE" "$CONFIG")
 DIR_WVP=$("$BIN"/read-config.sh "DIR_WVP" "$CONFIG")
+USER_GROUP=$("$BIN"/read-config.sh "USER_GROUP" "$CONFIG" "$(id -u):$(id -g)")
+DIR_CREDENTIALS=$("$BIN"/read-config.sh "DIR_CREDENTIALS" "$CONFIG" "$HOME")
 
 # date
 if [ $# -eq 1 ]; then
@@ -42,7 +44,7 @@ fi
 
 echo "$YEAR $MONTH $DAY"
 
-TEMPDIR="$DIR_WVP/hdf-$YEAR-$MONTH-$DAY"
+TEMPDIR="$DIR_WVP/tmp/hdf-$YEAR-$MONTH-$DAY"
 
 mkdir -p "$TEMPDIR"
 
@@ -51,14 +53,14 @@ docker run \
 --rm \
 -e FORCE_CREDENTIALS=/app/credentials \
 -e BOTO_CONFIG=/app/credentials/.boto \
--v "$HOME:/app/credentials" \
+-v "$DIR_CREDENTIALS:/app/credentials" \
 -v /codede:/codede \
 -v /data:/data \
 -v /force:/force \
 -v /mnt:/mnt \
 -v "$HOME:$HOME" \
 -w "$PWD" \
--u "$(id -u):$(id -g)" \
+-u "$USER_GROUP" \
 "$IMAGE" \
 force-lut-modis \
   -d "$YEAR$MONTH$DAY,$YEAR$MONTH$DAY" \
